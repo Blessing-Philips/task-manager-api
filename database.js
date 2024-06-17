@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose
     .connect('mongodb://localhost:27017/todo-app')
-    .then(() => console.log("Successfully connected todatabase!"))
+    .then(() => console.log("Successfully connected to database!"))
     .catch(err => {
         console.error("Error conecting to database", err.message)
     });
