@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const db = require('./database');
 const productRouter = require('./routes/productRoute');
+const todoRouter = require('./routes/todoRoute');
 
 const app = express();
 
@@ -12,12 +13,14 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(bodyParser.json());
-app.use(bodyPraser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
 app.get('/', (req, res) => {
-    res.send("Hello, Backend Devs!")
+    res.render('app')
 });
+app.use('/api/', productRouter)
+app.use('/api/', todoRouter);
 
 
 //Connecting to database
@@ -33,4 +36,4 @@ app.listen(port, (err) => {
         console.error(err.message)
     }
     console.log(`Server listening on port ${port}`)
-})
+});
