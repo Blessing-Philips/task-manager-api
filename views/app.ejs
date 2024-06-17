@@ -1,0 +1,29 @@
+<%- include("./partials/header") %>
+
+    <nav class="navbar navbar-light bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand text-light" href="#">Todo</a>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <form action="/api/addtask" method="POST" class="d-flex">
+
+            <input type="text" name="todo" class="form-control pt-1" placeholder="Enter Task">
+            <input type="submit" value="Add Task" class="btn btn-md btn-primary mt-1 mx-3">
+
+        </form>
+
+        <ul class="list-group my-5">
+
+            <% tasks.forEach(todos => { %>
+                <li class="list-group-item"><%= todos.task %></li>
+            <% }) %>
+
+        </ul>
+
+    </div>
+
+
+
+    <%- include("./partials/footer") %>
