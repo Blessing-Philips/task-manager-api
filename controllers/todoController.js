@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose')
 
 const Todo = require('../models/TodoModel');
 
@@ -6,7 +7,7 @@ const getTask = (async (req, res) => {
     try {
         let getTasks = await Todo.find().sort({ createdAt: -1 });
         res.status(200).json({ Tasks: getTasks });
-       // res.render('app', { Tasks: getTasks })
+        // res.render('app', { Tasks: getTasks })
         // window.getTask = getTasks;
     } catch (err) {
         res.status(400).send({ error: error.message })
@@ -37,10 +38,21 @@ const addTask = (async (req, res) => {
 const updateTask = (async (req, res) => {
     try {
         const { id } = req.params
-        const task = await Todo.findByIdAndUpdate(id, { new: true, runValidators: true })
-        res.status(200).send("task updated successfully")
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(404).send("Task not found")
+        };
+
+        const updatedTask = await Todo.findByIdAndUpdate(
+            id,
+            { task: req.body.task },
+            { new: true, runValidators: true }
+        )
+
+        return res.status(200).send("task updated successfully")
+
     } catch (err) {
-        res.status(400).send("task not found")
+        res.status(400).json({ error: err.message })
     }
 });
 
@@ -60,5 +72,4 @@ module.exports = {
     addTask,
     updateTask,
     deleteTask
-
 };
