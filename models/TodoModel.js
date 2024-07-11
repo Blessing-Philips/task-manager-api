@@ -13,7 +13,7 @@ const UserSchema = new Schema(
             default: false
         }
     },
-    { timestamps: true }
+    { timestamps: true } // Inclusion of timestamps
 );
 
 module.exports = mongoose.model('Todo', UserSchema);

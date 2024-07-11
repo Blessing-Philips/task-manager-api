@@ -1,4 +1,6 @@
 const express = require('express');
+
+// express can be easily used in place of body-parser btw
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
